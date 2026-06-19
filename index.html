@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Mis Juegos Divertidos! - Portal Educativo TDAH</title>
+    <!-- Lexend: Dyslexia-friendly and highly readable font for focus -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Accessibility Panel -->
+    <header class="top-bar no-print">
+        <button id="btn-back-hub" class="btn-secondary hidden" onclick="navigateTo('hub')">🏠 Inicio</button>
+        <div class="accessibility-controls">
+            <button id="toggle-voice" class="btn-icon" title="Activar/Desactivar voz de instrucciones" onclick="toggleVoiceSetting()">🔊 Voz: Activa</button>
+            <button id="toggle-sfx" class="btn-icon" title="Activar/Desactivar efectos de sonido" onclick="toggleSfxSetting()">🎵 Sonidos: Activos</button>
+            <button id="toggle-text-size" class="btn-icon" title="Cambiar tamaño de texto" onclick="toggleTextSizeSetting()">🔍 Texto Grande</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- SCREEN 1: HUB / SELECTOR DE JUEGOS -->
+        <section id="screen-hub" class="screen active">
+            <header class="hub-header">
+                <h1>🌟 ¡Hola! Elige tu juego de hoy 🌟</h1>
+                <p>Aprende, juega y diviértete a tu propio ritmo.</p>
+            </header>
+            
+            <div class="games-grid">
+                <!-- Game 1 Card -->
+                <div class="game-card card-blue" onclick="startActivity('numbers')">
+                    <span class="game-emoji">🔢</span>
+                    <h2>Juego de Números</h2>
+                    <p>Une cada número con sus objetos divertidos.</p>
+                    <button class="btn-play">¡Jugar ahora!</button>
+                </div>
+                
+                <!-- Game 2 Card -->
+                <div class="game-card card-purple" onclick="startActivity('memorama')">
+                    <span class="game-emoji">🌟</span>
+                    <h2>Memorama Vocales</h2>
+                    <p>Encuentra las parejas de letras y escucha su sonido.</p>
+                    <button class="btn-play">¡Jugar ahora!</button>
+                </div>
+                
+                <!-- Game 3 Card -->
+                <div class="game-card card-teal" onclick="startActivity('animals')">
+                    <span class="game-emoji">🐬</span>
+                    <h2>Animales del Océano</h2>
+                    <p>Aprende sobre animales marinos y juega a adivinar.</p>
+                    <button class="btn-play">¡Jugar ahora!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: JUEGO DE NÚMEROS -->
+        <section id="screen-numbers" class="screen">
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <h2>🔢 Juego de Números y Cantidades</h2>
+                    <p id="numbers-instructions">¡Haz clic en un número y luego en el grupo de objetos que tiene esa cantidad!</p>
+                    <button class="btn-speaker" onclick="speakInstructions('numbers-instructions')">🔊 Escuchar instrucción</button>
+                    <!-- Progress Bar (Highly reinforcing for ADHD) -->
+                    <div class="progress-container">
+                        <div class="progress-bar-label">Progreso:</div>
+                        <div class="progress-bar-bg">
+                            <div id="numbers-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="board-numbers">
+                    <div class="column" id="numbers-col">
+                        <!-- Numbers go here -->
+                    </div>
+                    <div class="column" id="quantities-col">
+                        <!-- Quantities go here -->
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="initNumbersGame()">🔄 Reiniciar Juego</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: MEMORAMA DE VOCALES -->
+        <section id="screen-memorama" class="screen">
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <h2>🌟 Memorama de Vocales</h2>
+                    <p id="memorama-instructions">¡Encuentra las letras iguales! Voltea dos cartas para buscar la pareja.</p>
+                    <button class="btn-speaker" onclick="speakInstructions('memorama-instructions')">🔊 Escuchar instrucción</button>
+                    
+                    <!-- Difficulty Selector (ADHD adaptation to reduce card overload) -->
+                    <div class="difficulty-container">
+                        <span>Elige cuántas cartas usar:</span>
+                        <div class="difficulty-buttons">
+                            <button id="diff-easy" class="btn-diff active" onclick="setMemoramaDifficulty('easy')">Fácil (6 cartas)</button>
+                            <button id="diff-normal" class="btn-diff" onclick="setMemoramaDifficulty('normal')">Normal (10 cartas)</button>
+                        </div>
+                    </div>
+
+                    <div class="stats-panel">
+                        <div class="stat-badge">Intentos: <span id="mem-moves">0</span></div>
+                        <div class="stat-badge">Parejas: <span id="mem-matches">0</span> / <span id="mem-total-pairs">3</span></div>
+                    </div>
+                </div>
+
+                <div class="board-memorama" id="memorama-board">
+                    <!-- Cards go here -->
+                </div>
+
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="initMemoramaGame()">🔄 Reiniciar Memorama</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: ANIMALES DEL OCÉANO -->
+        <section id="screen-animals" class="screen">
+            <div class="game-wrapper">
+                <div class="game-header no-print">
+                    <h2>🐬 Animales del Océano</h2>
+                    <p id="animals-instructions">Explora los animales haciendo clic en ellos o juega a encontrarlos.</p>
+                    <button class="btn-speaker" onclick="speakInstructions('animals-instructions')">🔊 Escuchar instrucción</button>
+                    
+                    <!-- Mode toggles -->
+                    <div class="mode-container">
+                        <button id="mode-explore" class="btn-mode active" onclick="setAnimalsMode('explore')">🔍 Modo Explorar</button>
+                        <button id="mode-trivia" class="btn-mode" onclick="setAnimalsMode('trivia')">🎯 Juego "Encuéntrame"</button>
+                    </div>
+
+                    <!-- Trivia Prompt (Visible only in trivia mode) -->
+                    <div id="trivia-panel" class="trivia-panel hidden">
+                        <p id="trivia-question">¿Dónde está el animal?</p>
+                        <button class="btn-speaker" onclick="repeatTriviaQuestion()">🔊 Volver a escuchar</button>
+                    </div>
+                </div>
+
+                <div class="board-animals" id="animals-board">
+                    <!-- Animal cards go here -->
+                </div>
+
+                <div class="game-controls no-print">
+                    <button class="btn-print" onclick="window.print()">🖨️ Imprimir Recortables</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- VICTORY MODAL (Highly reinforcing, clean popup) -->
+    <div id="victory-modal" class="modal hidden no-print">
+        <div class="modal-content">
+            <span class="victory-icon">🎉</span>
+            <h2 id="victory-title">¡Lo lograste genial!</h2>
+            <p id="victory-subtitle">¡Has completado la actividad con mucho éxito!</p>
+            <div class="victory-stars">⭐⭐⭐</div>
+            <button class="btn-primary btn-large" onclick="closeVictoryModal()">👍 Continuar jugando</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="juego-numeros.js"></script>
+    <script src="memorama.js"></script>
+    <script src="animales.js"></script>
+</body>
+</html>

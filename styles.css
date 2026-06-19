@@ -1,0 +1,907 @@
+/* ==========================================================================
+   PORTAL EDUCATIVO TDAH - ESTILOS PRINCIPALES
+   ========================================================================== */
+
+/* Variables del sistema de diseño - Paleta de colores relajante */
+:root {
+    --bg-gradient: linear-gradient(135deg, #eef2f7 0%, #e0e8f5 100%);
+    --text-color: #2c3e50;
+    --text-light: #5a738e;
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    
+    /* Colores del Hub y Juegos (Tonos pasteles relajantes de alta visibilidad) */
+    --color-blue: #4a90e2;
+    --color-blue-bg: #e6f0fa;
+    --color-purple: #9b59b6;
+    --color-purple-bg: #f4ecf7;
+    --color-teal: #1abc9c;
+    --color-teal-bg: #e6f8f5;
+    
+    --color-success: #2ecc71;
+    --color-error: #e74c3c;
+    --color-accent: #f1c40f;
+    
+    /* Configuración por defecto de fuentes */
+    --font-primary: 'Lexend', sans-serif;
+    --base-font-size: 16px;
+}
+
+/* Estado de Texto Grande para accesibilidad */
+body.large-text {
+    --base-font-size: 20px;
+}
+
+/* Estilos de Reset y Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--base-font-size);
+    color: var(--text-color);
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE ACCESIBILIDAD
+   ========================================================================== */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.accessibility-controls {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+}
+
+/* Botones Accesibilidad */
+.btn-icon {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: white;
+    border: 2px solid #cbd5e0;
+    border-radius: 50px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-icon:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-blue);
+    box-shadow: 0 4px 8px rgba(74, 144, 226, 0.15);
+}
+
+.btn-icon:active {
+    transform: translateY(0);
+}
+
+.btn-icon.active {
+    background-color: var(--color-blue);
+    color: white;
+    border-color: var(--color-blue);
+}
+
+/* Botón Altavoz de Instrucciones */
+.btn-speaker {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #fff;
+    color: var(--color-blue);
+    border: 3px dashed var(--color-blue);
+    border-radius: 50px;
+    padding: 10px 24px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-speaker:hover {
+    background: var(--color-blue-bg);
+    transform: scale(1.05);
+}
+
+.btn-speaker:active {
+    transform: scale(0.95);
+}
+
+/* Botón de volver genérico */
+.btn-secondary {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    background: white;
+    border: 3px solid var(--text-color);
+    border-radius: 12px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #f1f2f6;
+    transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   DISEÑO SPA Y VISTAS (SCREENS)
+   ========================================================================== */
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.screen {
+    display: none;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   PANTALLA: HUB / SELECCIÓN DE JUEGOS
+   ========================================================================== */
+.hub-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hub-header h1 {
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+}
+
+.hub-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* Tarjeta de Juego (Estilo Premium y Limpio) */
+.game-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 35px 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border: 6px solid white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+
+/* Colores de tarjetas con enfoque suave pero colorido */
+.card-blue { border-color: var(--color-blue); }
+.card-blue::before { background: var(--color-blue); }
+.card-blue:hover { background: var(--color-blue-bg); }
+
+.card-purple { border-color: var(--color-purple); }
+.card-purple::before { background: var(--color-purple); }
+.card-purple:hover { background: var(--color-purple-bg); }
+
+.card-teal { border-color: var(--color-teal); }
+.card-teal::before { background: var(--color-teal); }
+.card-teal:hover { background: var(--color-teal-bg); }
+
+.game-emoji {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.game-card:hover .game-emoji {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.game-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+
+.game-card p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+/* Botones Premium 3D */
+.btn-play {
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 12px 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+    transition: all 0.1s ease;
+}
+
+.card-blue .btn-play { background: var(--color-blue); }
+.card-purple .btn-play { background: var(--color-purple); }
+.card-teal .btn-play { background: var(--color-teal); }
+
+.game-card:hover .btn-play {
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   ESTRUCTURA DE JUEGO GENERAL Y BARRA DE PROGRESO
+   ========================================================================== */
+.game-wrapper {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+    border: 4px solid #eef2f7;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.game-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+/* Barra de Progreso (Ayuda al TDAH a ver avance) */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    background: #f7fafc;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 2px solid #edf2f7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progress-bar-label {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    white-space: nowrap;
+}
+
+.progress-bar-bg {
+    flex-grow: 1;
+    height: 16px;
+    background: #edf2f7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--color-success);
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.4s ease-out;
+}
+
+/* Botones de Control */
+.game-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.btn-primary {
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    background: var(--color-blue);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 14px 35px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #3174c7;
+    transition: all 0.1s ease;
+}
+
+.btn-primary:hover {
+    background: #3b82d6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #3174c7;
+}
+
+.btn-primary:active {
+    transform: translateY(6px);
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   ACTIVIDAD 1: JUEGO DE NÚMEROS
+   ========================================================================== */
+.board-numbers {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    margin-top: 30px;
+    min-height: 380px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+/* Tarjetas de juego de números */
+.num-card {
+    background: white;
+    border: 4px solid #cbd5e0;
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+
+.num-card:hover {
+    border-color: var(--color-blue);
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(74, 144, 226, 0.1);
+}
+
+/* Estado de selección */
+.num-card.selected {
+    border-color: var(--color-accent);
+    background-color: #fefde8;
+    box-shadow: 0 0 0 4px var(--color-accent);
+    transform: scale(1.05);
+}
+
+/* Estado de completado (desvanecido para TDAH) */
+.num-card.matched {
+    opacity: 0.25;
+    border-color: var(--color-success);
+    background-color: #f0fdf4;
+    cursor: default;
+    pointer-events: none;
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+.quantity-display {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+}
+
+/* ==========================================================================
+   ACTIVIDAD 2: MEMORAMA DE VOCALES
+   ========================================================================== */
+.difficulty-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-diff {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: #edf2f7;
+    border: 2px solid #cbd5e0;
+    border-radius: 50px;
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-diff.active {
+    background: var(--color-purple);
+    color: white;
+    border-color: var(--color-purple);
+}
+
+.stats-panel {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.stat-badge {
+    background: #f7fafc;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    border: 2px solid #e2e8f0;
+}
+
+.board-memorama {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-content: center;
+    max-width: 750px;
+    margin: 30px auto 0 auto;
+    perspective: 1000px;
+}
+
+/* Tarjeta tridimensional de Memorama */
+.mem-card {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    max-width: 110px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+    cursor: pointer;
+}
+
+.mem-card:hover {
+    transform: scale(1.05);
+}
+
+.mem-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.mem-card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    font-weight: 800;
+    user-select: none;
+    border: 4px solid white;
+}
+
+.mem-card-back {
+    background-color: var(--color-purple);
+    color: white;
+    font-size: 2.2rem;
+    border-color: white;
+    box-shadow: 0 6px 12px rgba(155, 89, 182, 0.2);
+}
+
+.mem-card-front {
+    background: white;
+    transform: rotateY(180deg);
+    font-size: 3.5rem;
+    border-color: var(--color-purple);
+}
+
+/* Colores específicos de vocales para discriminación visual */
+.vowel-a { color: #ff6b6b; }
+.vowel-e { color: #4a90e2; }
+.vowel-i { color: #f1c40f; }
+.vowel-o { color: #9b59b6; }
+.vowel-u { color: #1abc9c; }
+
+/* Par emparejado */
+.mem-card.matched {
+    transform: rotateY(180deg) scale(0.95);
+    pointer-events: none;
+}
+
+.mem-card.matched .mem-card-front {
+    border-color: var(--color-success);
+    background-color: #f0fdf4;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Efecto agitar para error */
+.mem-card.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: scale(1.05); }
+    20%, 60% { transform: translate(-6px, 0) scale(1.05); }
+    40%, 80% { transform: translate(6px, 0) scale(1.05); }
+}
+
+/* Ajustes responsivos para tableros */
+@media (max-width: 650px) {
+    .board-memorama {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    .board-numbers {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* ==========================================================================
+   ACTIVIDAD 3: ANIMALES DEL OCÉANO
+   ========================================================================== */
+.mode-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn-mode {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #edf2f7;
+    border: 2px solid #cbd5e0;
+    border-radius: 50px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-mode.active {
+    background: var(--color-teal);
+    color: white;
+    border-color: var(--color-teal);
+}
+
+.trivia-panel {
+    background: var(--color-teal-bg);
+    border: 3px dashed var(--color-teal);
+    border-radius: var(--border-radius-md);
+    padding: 15px 30px;
+    margin: 15px auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: bounceSmall 0.6s ease-in-out;
+}
+
+#trivia-question {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #117864;
+}
+
+@keyframes bounceSmall {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.board-animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+/* Tarjeta de Animal */
+.animal-card {
+    background: white;
+    border: 4px dashed #90a4ae;
+    border-radius: var(--border-radius-md);
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.animal-card:hover {
+    border-color: var(--color-teal);
+    background-color: var(--color-teal-bg);
+    transform: scale(1.05);
+}
+
+.animal-card:active {
+    transform: scale(0.95);
+}
+
+.animal-emoji {
+    font-size: 5rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.animal-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+/* Estilo Trivia Fallida o Respondida */
+.animal-card.trivia-success {
+    border-color: var(--color-success);
+    background-color: #f0fdf4;
+    border-style: solid;
+    animation: successPulse 0.5s ease-out;
+}
+
+.animal-card.trivia-fail {
+    border-color: var(--color-error);
+    background-color: #fef2f2;
+    border-style: solid;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    50% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { transform: scale(1); }
+}
+
+.btn-print {
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background: var(--color-success);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 12px 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #239b56;
+    transition: all 0.1s ease;
+}
+
+.btn-print:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #239b56;
+}
+
+.btn-print:active {
+    transform: translateY(6px);
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   MODAL DE VICTORIA
+   ========================================================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: white;
+    border: 8px solid var(--color-accent);
+    border-radius: var(--border-radius-lg);
+    padding: 50px 40px;
+    max-width: 550px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.victory-icon {
+    font-size: 6rem;
+    display: block;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-15px) scale(1.05); }
+}
+
+.modal-content h2 {
+    font-size: 2.2rem;
+    color: var(--color-purple);
+    margin-bottom: 12px;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 25px;
+}
+
+.victory-stars {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 10px;
+}
+
+.btn-large {
+    font-size: 1.2rem;
+    padding: 16px 45px;
+    box-shadow: 0 8px 0 #d4a017;
+    background: var(--color-accent);
+    color: #795b02;
+}
+
+.btn-large:hover {
+    background: #f3cd32;
+    box-shadow: 0 10px 0 #d4a017;
+}
+
+/* Elementos de confeti animados */
+.confetti {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    z-index: 1001;
+    animation: fall 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10vh) rotate(0deg); }
+    to { transform: translateY(110vh) rotate(720deg); }
+}
+
+/* ==========================================================================
+   ESTILOS DE IMPRESIÓN (Genera hojas de recortar limpias)
+   ========================================================================== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .no-print, .top-bar, .game-controls, .game-header, .mode-container {
+        display: none !important;
+    }
+
+    .main-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .game-wrapper {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .board-animals {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 25px !important;
+        margin-top: 10px !important;
+    }
+
+    .animal-card {
+        border: 3px dashed #7f8c8d !important;
+        background: white !important;
+        padding: 20px 10px !important;
+        page-break-inside: avoid !important;
+    }
+
+    .animal-emoji {
+        font-size: 4rem !important;
+    }
+
+    .animal-name {
+        font-size: 1.2rem !important;
+    }
+}
